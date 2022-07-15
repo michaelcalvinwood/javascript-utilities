@@ -7,6 +7,7 @@
  * @param attributes (Obj): optional object whose key/value pairs will be added to the element (e.g. {src: 'https://google.com', id: 'myId'})
  * @param style (Obj): optional set of styles to apply to the created element (e.g. {color: "red"})
  * @return Element on success (the created child element); false on error (if tag contains invalid characters). 
+ * Example: createElement('body', 'div', 'hello-world-class hello-moon-class', 'Hello World', {id: 'helloWorldId'}, {color: 'blue'});
  */
  
 function createElement (parent, tag, c = false, text = false, attributes = false, style = null) {
@@ -18,28 +19,30 @@ function createElement (parent, tag, c = false, text = false, attributes = false
     }
 
     let parentEl = null;
-    // optional parameters
-    if (parent) {
-        if (typeof parent === 'string') parentEl = document.querySelector(parent);
-        else parentEl = parent;
+    try {
+        if (parent) {
+            if (typeof parent === 'string') parentEl = document.querySelector(parent);
+            else parentEl = parent;
 
-        if (parentEl) parentEl.appendChild(el);
+            if (parentEl) parentEl.appendChild(el);
+        }
+        if (c) el.className = c; 
+        if (text) el.innerText = text;
+        if (attributes) {
+            for (const [key, value] of Object.entries(attributes)) {
+                el.setAttribute (key, value);
+            };
+        }
+        if (style) {
+            for (const [key, value] of Object.entries(style)) {
+                el.style[key] = value;
+            };
+        }
+    } catch (e) {
+        console.error(e);
+        return false;
     }
-    if (c) el.className = c; 
-    if (text) el.innerText = text;
-    if (attributes) {
-        for (const [key, value] of Object.entries(attributes)) {
-            el.setAttribute (key, value);
-        };
-    }
-    console.log(el.style);
-    if (style) {
-        for (const [key, value] of Object.entries(style)) {
-            el.style[key] = value;
-        };
-        console.log(el);
-    }
-
+    
     return el
 }
 

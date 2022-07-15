@@ -1,14 +1,15 @@
 /*
- * createElement: Creates a child element and appends to parent
- * @param parent (Element): parent element to attach child to
+ * createElement: Creates an element and appends to parent
+ * @param parent (Element | String): optional parent to attach child to. Can be a query selector or an actual element itself.
  * @param tag (String): element tag to create
  * @param c (String): optional class(es) of the element. Multiple classes are allowed when separated by a space.
  * @param text (String): optional innerText of the element
- * @param attributes (Obj): optional object whose key/value pairs will be added to the element
+ * @param attributes (Obj): optional object whose key/value pairs will be added to the element (e.g. {src: 'https://google.com', id: 'myId'})
+ * @param style (Obj): optional set of styles to apply to the created element (e.g. {color: "red"})
  * @return Element on success (the created child element); false on error (if tag contains invalid characters). 
  */
  
-function createElement (parent, tag, c = false, text = false, attributes = false) {
+function createElement (parent, tag, c = false, text = false, attributes = false, style = null) {
     let el = {};
     try {
         el = document.createElement(tag);
@@ -16,9 +17,14 @@ function createElement (parent, tag, c = false, text = false, attributes = false
         return false;
     }
 
-    parent.appendChild(el);
-    
+    let parentEl = null;
     // optional parameters
+    if (parent) {
+        if (typeof parent === 'string') parentEl = document.querySelector(parent);
+        else parentEl = parent;
+
+        if (parentEl) parentEl.appendChild(el);
+    }
     if (c) el.className = c; 
     if (text) el.innerText = text;
     if (attributes) {
@@ -26,7 +32,20 @@ function createElement (parent, tag, c = false, text = false, attributes = false
             el.setAttribute (key, value);
         };
     }
+    console.log(el.style);
+    if (style) {
+        for (const [key, value] of Object.entries(style)) {
+            el.style[key] = value;
+        };
+        console.log(el);
+    }
 
     return el
 }
+
+createElement('body', 'div', 'hello-world-class', 'Hello World', {id: 'helloWorldId'}, {color: 'blue'});
+
+
+
+
 

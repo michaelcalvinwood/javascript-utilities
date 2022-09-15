@@ -34,10 +34,10 @@ const playChannel = (elementId, playlistId, options = {}) => {
             console.log('totalSeconds', totalSeconds);
 
             jwplayer(elementId).setup({
-                playlist: `https://cdn.jwplayer.com/v2/playlists/${playlistId}`
+                playlist
             });
 
-            //jwplayer().playlistItem(index)
+            //jwplayer(elementId).playlistItem(10);
             //jwplayer().seek(position)
 
     })

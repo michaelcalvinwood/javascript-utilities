@@ -9,3 +9,13 @@ const todayAsISO = () => {
 const currentTimeInMilitaryTime = () => {
 	return new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false })
 }
+
+const convertISODateToHumanReadable = isoDate => {
+    const options = {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    };
+    const formattedDate = new Date(isoDate);
+    return formattedDate.toLocaleDateString('en-us', options);
+}

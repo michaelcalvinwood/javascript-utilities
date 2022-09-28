@@ -19,3 +19,9 @@ const convertISODateToHumanReadable = isoDate => {
     const formattedDate = new Date(isoDate);
     return formattedDate.toLocaleDateString('en-us', options);
 }
+
+/* Luxon Utilities */
+
+
+let date = luxon.DateTime.fromISO(post.date_gmt).minus({hours: 5}).toFormat('yyyy-MM-dd HH:mm:ss');
+let prettyDate = luxon.DateTime.fromISO(post.date_gmt).minus({hours: 5}).toFormat('MMMM dd, yyyy')

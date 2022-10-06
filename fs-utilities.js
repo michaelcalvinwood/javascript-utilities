@@ -5,3 +5,8 @@ const readJsonFile = fn => {
 const writeJsonFile = (data, fn) => {
     fs.writeFileSync(path.resolve(fn), JSON.stringify(data));
 } 
+
+const writeCreateFileSync = (data, fn) => {
+    fs.mkdirSync(path.resolve(fn), { recursive: true }, (error) => console.log(error));
+    fs.writeFileSync(path.resovle(fn), data);
+}

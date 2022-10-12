@@ -13,6 +13,18 @@ const dbPoolInfo = {
   
 dbPool = mysql.createPool(dbPoolInfo);
 
+dbPool.on('connection', function (connection) {
+    console.log('DB Connection established');
+  
+    connection.on('error', function (err) {
+      console.error(new Date(), 'MySQL error', err.code);
+    });
+    connection.on('close', function (err) {
+      console.error(new Date(), 'MySQL close', err);
+    });
+  
+  });
+
 function sqlQuery (query, pool) {
     return new Promise ((resolve, reject) => {
         pool.query((err, res, fields) => {

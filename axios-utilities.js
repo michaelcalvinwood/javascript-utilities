@@ -8,18 +8,16 @@ const axiosDownloadFile = async (url, filePath) => {
     writer.on('finish', resolve)
     writer.on('error', reject)
 
-    let response;
     try {
-       response = await axios({
+       const response = await axios({
         url,
         method: 'GET',
         responseType: 'stream'
-      })
+      });
+      response.data.pipe(writer)
     } catch (e) {
       reject(e);
       return;
     }
-  
-    response.data.pipe(writer)
   })
 }

@@ -1,3 +1,5 @@
+// sliding in a curved rectangle
+
 
 let startTime;
 let img;
@@ -10,7 +12,7 @@ let left = 0;
  */
 
 //function slideInRectangleLeft (startTime, width, color, animationDuration)
-let capturer;
+
 function doCanvas () {
     const canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
@@ -19,7 +21,7 @@ function doCanvas () {
     const elapsed = time - startTime;
     //console.log(elapsed);
 
-    console.log(time.getSeconds());
+    //console.log(time.getSeconds());
 
     ctx.save();
     ctx.drawImage(img, 0, 0, 1920, 1080);
@@ -37,29 +39,28 @@ function doCanvas () {
       
     ctx.restore();    
     
-    if (elapsed <= 5000) {
-        CanvasCapture.takePNGSnapshot();
-        window.requestAnimationFrame(doCanvas);
-    } else {
-        
-        console.log('saved');
-    }
-}
+    ctx.save();
+    ctx.beginPath();
+    var center_X = rectangleWidth;
+    var center_Y = canvas.height / 2;
+    var radius = 80;
+    ctx.arc(center_X, center_Y, canvas.height/2, -0.5*Math.PI, .5*Math.PI, false);
+    ctx.closePath();
+    ctx.lineWidth = 8;
+    ctx.fillStyle = 'rgba(0,0,0,.5)';
+    ctx.fill();
+    
 
-let CanvasCapture = window.CanvasCapture.CanvasCapture;
+    ctx.restore();   
+    window.requestAnimationFrame(doCanvas);
+}
 
 function loadImages () {
     img = new Image();
     img.onload = () => { 
         startTime = Date.now();
-        CanvasCapture.init(
-            document.getElementById('canvas'),
-            { showRecDot: true }, // Options are optional, more info below.
-          );
         window.requestAnimationFrame(doCanvas);
-        CanvasCapture.beginPNGFramesRecord();
     };
-    img.crossOrigin = "Anonymous";
     img.src = 'http://cdn.akc.org/content/article-body-image/funny-basset_hound_yawning.jpg';
 }
 

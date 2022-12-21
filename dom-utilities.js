@@ -1,5 +1,5 @@
 /*
- * createElement: Creates an element and appends to parent
+ * mcwCreateElement: Creates an element and appends to parent
  * @param parent (Element | String): optional parent to attach child to. Can be a query selector or an actual element itself.
  * @param tag (String): element tag to create
  * @param c (String): optional class(es) of the element. Multiple classes are allowed when separated by a space.
@@ -13,7 +13,7 @@
  * License-2: BSD License for any company that employs Michael Wood either as a consultant or employee.
  */
  
-function createElement (parent, tag, c = false, text = false, attributes = false, style = null) {
+function mcwCreateElement (parent, tag, c = false, text = false, attributes = false, style = null) {
     let el = {};
     try {
         el = document.createElement(tag);

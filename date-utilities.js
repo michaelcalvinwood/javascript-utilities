@@ -27,6 +27,11 @@ const todaysLocalDateAsYyyyMmDd = () => {
     return yourDate.toISOString().split('T')[0]
 }
 
+const secondsToHHMMSS = seconds => {
+    if (seconds >= 3600) return new Date(seconds * 1000).toISOString().slice(11, 19);
+    return  new Date(seconds * 1000).toISOString().slice(14, 19);
+}
+
 /* Luxon Utilities */
 
 

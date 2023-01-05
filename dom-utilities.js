@@ -49,6 +49,10 @@ function mcwCreateElement (parent, tag, c = false, text = false, attributes = fa
     return el
 }
 
+const I = id => document.getElementById(id);
+const Q = selector => document.querySelector(selector);
+const A = selector => document.querySelectorAll(selector);
+
 createElement('body', 'div', 'hello-world-class', 'Hello World', {id: 'helloWorldId'}, {color: 'blue'});
 
 
